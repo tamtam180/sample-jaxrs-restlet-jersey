@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				$("#btnRun").click(function(){
+					
+					var params = [
+						"",
+						"?name=1",
+						"?name=1&name=2",
+						"?name[]=1",
+						"?name[]=1&name[]=2"
+					];
+					$.each(["app1", "app2"], function(idx, app){
+						$.each(["jersey", "restlet"], function(idx, impl){
+							$.each(params, function(idx, param) {
+								var url = "/" + impl + "/sample/" + app + param;
+								$.get(url, {}, function(data){
+									$("#res_" + app + "_" + impl + "_" + idx).text(data);
+								});
+							});
+						});
+					});
+				});
+			});
+		</script>
+		<title>JAX-RS Sample</title>
+	</head>
+	<body>
+		
+		<h1>Jersey and Restlet Sample.</h1>
+		
+		<button id="btnRun">実行</button>
+		
+		<table border="1">
+			<caption>Server: @QueryParam("name")</caption>
+			<thead>
+				<tr>
+					<th>(param)</th>
+					<th>Jersey</th>
+					<th>Restlet</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>GET ?</td>
+					<td id="res_app1_jersey_0"></td>
+					<td id="res_app1_restlet_0"></td>
+				</tr>
+				<tr>
+					<td>GET ?name=1</td>
+					<td id="res_app1_jersey_1"></td>
+					<td id="res_app1_restlet_1"></td>
+				</tr>
+				<tr>
+					<td>GET ?name=1&name=2</td>
+					<td id="res_app1_jersey_2"></td>
+					<td id="res_app1_restlet_2"></td>
+				</tr>
+				<tr>
+					<td>GET ?name[]=1</td>
+					<td id="res_app1_jersey_3"></td>
+					<td id="res_app1_restlet_3"></td>
+				</tr>
+				<tr>
+					<td>GET ?name[]=1&name[]=2</td>
+					<td id="res_app1_jersey_4"></td>
+					<td id="res_app1_restlet_4"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<br/>
+
+		<table border="1">
+			<caption>Server: @QueryParam("name[]")</caption>
+			<thead>
+				<tr>
+					<th>(param)</th>
+					<th>Jersey</th>
+					<th>Restlet</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>GET ?</td>
+					<td id="res_app2_jersey_0"></td>
+					<td id="res_app2_restlet_0"></td>
+				</tr>
+				<tr>
+					<td>GET ?name=1</td>
+					<td id="res_app2_jersey_1"></td>
+					<td id="res_app2_restlet_1"></td>
+				</tr>
+				<tr>
+					<td>GET ?name=1&name=2</td>
+					<td id="res_app2_jersey_2"></td>
+					<td id="res_app2_restlet_2"></td>
+				</tr>
+				<tr>
+					<td>GET ?name[]=1</td>
+					<td id="res_app2_jersey_3"></td>
+					<td id="res_app2_restlet_3"></td>
+				</tr>
+				<tr>
+					<td>GET ?name[]=1&name[]=2</td>
+					<td id="res_app2_jersey_4"></td>
+					<td id="res_app2_restlet_4"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+
+	</body>
+</html>

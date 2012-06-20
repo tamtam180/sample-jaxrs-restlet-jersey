@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+		
+		<h1>README</h1>
+		<p>
+			JerseyとRestletの違いを示すサンプルです。<br/>
+			Restletでは、空のリストが受け取れず要素数1(最初の要素がnull)のリストを作ります。<br/>
+		</p>
+		<p>
+			JerseyとRestletを同居すると以下のエラーが出ることがあります。<br/>
+			
+			<code>java.lang.IllegalArgumentException: This method supports only the Types Cookie, CacheControl, EntityTag, NewCookie and MediaType </code><br/>
+			
+			このエラーが出たときは、クラスパスの指定でJerseyのライブラリをRestletよりも前に書くことで回避することが可能です。
+		</p>
+		
+		<h1>実行結果</h1>
+		
+		<table border="1">
+			<caption>Server: @QueryParam("name")</caption>
+			<thead>
+				<tr>
+					<th>(param)</th>
+					<th>Jersey</th>
+					<th>Restlet</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>GET ?</td>
+					<td id="res_app1_jersey_0">[]</td>
+					<td id="res_app1_restlet_0">[null]</td>
+				</tr>
+				<tr>
+					<td>GET ?name=1</td>
+					<td id="res_app1_jersey_1">[1]</td>
+					<td id="res_app1_restlet_1">[1]</td>
+				</tr>
+				<tr>
+					<td>GET ?name=1&amp;name=2</td>
+					<td id="res_app1_jersey_2">[1, 2]</td>
+					<td id="res_app1_restlet_2">[1, 2]</td>
+				</tr>
+				<tr>
+					<td>GET ?name[]=1</td>
+					<td id="res_app1_jersey_3">[]</td>
+					<td id="res_app1_restlet_3">[null]</td>
+				</tr>
+				<tr>
+					<td>GET ?name[]=1&amp;name[]=2</td>
+					<td id="res_app1_jersey_4">[]</td>
+					<td id="res_app1_restlet_4">[null]</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<br>
+
+		<table border="1">
+			<caption>Server: @QueryParam("name[]")</caption>
+			<thead>
+				<tr>
+					<th>(param)</th>
+					<th>Jersey</th>
+					<th>Restlet</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>GET ?</td>
+					<td id="res_app2_jersey_0">[]</td>
+					<td id="res_app2_restlet_0">[null]</td>
+				</tr>
+				<tr>
+					<td>GET ?name=1</td>
+					<td id="res_app2_jersey_1">[]</td>
+					<td id="res_app2_restlet_1">[null]</td>
+				</tr>
+				<tr>
+					<td>GET ?name=1&amp;name=2</td>
+					<td id="res_app2_jersey_2">[]</td>
+					<td id="res_app2_restlet_2">[null]</td>
+				</tr>
+				<tr>
+					<td>GET ?name[]=1</td>
+					<td id="res_app2_jersey_3">[1]</td>
+					<td id="res_app2_restlet_3">[1]</td>
+				</tr>
+				<tr>
+					<td>GET ?name[]=1&amp;name[]=2</td>
+					<td id="res_app2_jersey_4">[1, 2]</td>
+					<td id="res_app2_restlet_4">[1, 2]</td>
+				</tr>
+			</tbody>
+		</table>
+
+</body>
+
+</html>
